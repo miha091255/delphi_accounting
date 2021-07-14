@@ -1,0 +1,15 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<BorlandProject>
+	<Transactions>
+    <Transaction>1899.12.30 00:00:00.000.266,=C:\Users\miha\Documents\RAD Studio\Projects\Unit1.pas</Transaction>
+    <Transaction>2019.05.24 13:07:50.000.987,=C:\Users\miha\Documents\RAD Studio\Projects\Unit1.pas</Transaction>
+    <Transaction>2021.07.07 18:03:14.000.420,=C:\Users\miha\Documents\RAD Studio\Projects\Unit1.pas</Transaction>
+    <Transaction>2021.07.07 18:04:37.000.489,C:\Users\miha\Desktop\проекты\delphi_accounting\Unit1.pas=C:\Users\miha\Documents\RAD Studio\Projects\Unit1.pas</Transaction>
+    <Transaction>2021.07.07 18:04:37.000.489,C:\Users\miha\Desktop\проекты\delphi_accounting\Unit1.dfm=C:\Users\miha\Documents\RAD Studio\Projects\Unit1.dfm</Transaction>
+    <Transaction>2021.07.07 18:04:40.000.730,C:\Users\miha\Desktop\проекты\delphi_accounting\Project1.dproj=C:\Users\miha\Documents\RAD Studio\Projects\Project1.dproj</Transaction>
+    <Transaction>2021.07.07 18:52:18.000.336,=C:\Users\miha\Desktop\проекты\delphi_accounting\Unit2.pas</Transaction>
+    <Transaction>2021.07.07 19:12:29.000.394,C:\Users\miha\Desktop\проекты\delphi_accounting\RecordUnit.pas=C:\Users\miha\Desktop\проекты\delphi_accounting\Unit2.pas</Transaction>
+    <Transaction>2021.07.07 19:21:09.000.220,=C:\Users\miha\Desktop\проекты\delphi_accounting\Unit2.pas</Transaction>
+    <Transaction>2021.07.07 19:28:51.000.699,C:\Users\miha\Desktop\проекты\delphi_accounting\AccessConnectUnit.pas=C:\Users\miha\Desktop\проекты\delphi_accounting\Unit2.pas</Transaction>
+  </Transactions>
+</BorlandProject>
