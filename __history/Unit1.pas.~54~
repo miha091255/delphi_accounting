@@ -18,7 +18,6 @@ type
     PassportScan2: TCheckBox;
     AttestatScan1: TCheckBox;
     AttestatScan2: TCheckBox;
-    Registration: TCheckBox;
     Family: TCheckBox;
     Agreement: TCheckBox;
     Label1: TLabel;
@@ -41,6 +40,9 @@ type
     lCount: TLabel;
     lRegCount: TLabel;
     leQuestAddress: TLabeledEdit;
+    CheckListBox2: TCheckListBox;
+    Registration: TCheckBox;
+    Grades: TCheckBox;
     procedure FormCreate(Sender: TObject);
     procedure Timer1Timer(Sender: TObject);
     procedure DefaultConnectClick(Sender: TObject);
@@ -52,6 +54,8 @@ type
     procedure RenewRecordsList;
     procedure FIOEditEnter(Sender: TObject);
     procedure leQuestAddressEnter(Sender: TObject);
+    procedure FIOEditExit(Sender: TObject);
+    procedure leQuestAddressExit(Sender: TObject);
   private
     FConnected: Boolean;
     FTotalCount: Integer;
@@ -99,9 +103,10 @@ begin
   try
     rec := TRecord.create(fio, dtpTime.Time, dtpDate.Date,
     PassportScan1.Checked, PassportScan2.Checked, AttestatScan1.Checked,
-    AttestatScan2.Checked, Registration.Checked, Family.Checked,
+    AttestatScan2.Checked, Registration.Checked, Grades.Checked, Family.Checked,
     Agreement.Checked, Trim(NoteEdit.Text));
     connect.insert(rec);
+    rec.destroy;
     generateAnswer;
     renewRecordsList;
     TotalCount := FTotalCount + 1;
@@ -129,6 +134,11 @@ begin
   EditMode := true;
 end;
 
+procedure TForm1.FIOEditExit(Sender: TObject);
+begin
+  EditMode := False;
+end;
+
 procedure TForm1.FormClose(Sender: TObject; var Action: TCloseAction);
 begin
   SetConnected(False);
@@ -146,12 +156,16 @@ begin
 end;
 
 procedure TForm1.generateAnswer;
-var s: string;
+var s, name: string;
+  i: integer;
 begin
-  s := '«дравствуйте, '+Trim(FIOEdit.Text)+'!'+#13;
+  name := Trim(FIOEdit.Text);
+  i := pos(' ', name);
+  name := copy(name, i, length(name)-i+1);
+  s := '«дравствуйте, '+name+'! '+#13;
   if (not PassportScan1.Checked)or(not PassportScan2.Checked)or
   (not AttestatScan1.Checked)or(not AttestatScan2.Checked)or
-  (Family.Checked)or(Agreement.Checked) then
+  (Family.Checked)or(Agreement.Checked)or(Grades.Checked) then
     s := s+' ¬ вашем за€влении не хватает '+#13;
   if not PassportScan1.Checked then
     s := s + ' - копии паспорта лицевой(стр 1-2);'+#13;
@@ -165,7 +179,12 @@ begin
     s := s + ' - сведений о родител€х/ законных представител€х;'+#13;
   if Agreement.Checked then
     s := s + ' - за€влени€ от родителей о согласии на обработку ваших персональных данных;'+#13;
-  s := s + ' ¬опросы по заполнению за€вки вы можете задать '+questAddress;
+  if Grades.Checked then
+    s := s + ' - не проставлены баллы за экзамены;'+#13;
+  s := s + '≈сли у вас возникли вопросы по заполнению за€влени€,'+
+  ' посетите следующие источники:'+#13+'https://disk.yandex.ru/i/KN21P_7QknZHOQ'+#13+
+  'https://disk.yandex.ru/i/O3RnKnGL9210rg'+#13+
+  '≈сли у вас все еще остались вопросы, вы можете задать их '+questAddress;
   memo1.Text := s;
 end;
 
@@ -182,6 +201,11 @@ end;
 procedure TForm1.leQuestAddressEnter(Sender: TObject);
 begin
   EditMode:= true;
+end;
+
+procedure TForm1.leQuestAddressExit(Sender: TObject);
+begin
+  EditMode := False;
 end;
 
 procedure TForm1.miDisconnectClick(Sender: TObject);
@@ -229,16 +253,9 @@ procedure TForm1.SetEditMode(const Value: Boolean);
 begin
   FEditMode := Value;
   if FEditMode then
-  begin
-    Timer1.Enabled:= False;
-    NoteEdit.Text := 'Edit mode';
-  end
+    Timer1.Enabled:= False
   else
-  begin
     Timer1.Enabled:= True;
-    NoteEdit.Text := 'Standart mode';
-  end;
-
 end;
 
 procedure TForm1.SetQuestAddress(const Value: String);
@@ -286,16 +303,16 @@ begin
   dtpDate.Date := today;
   try
     buff := Trim(Clipboard.AsText);
+    if (getSpaceCount(buff)<=4) and (ActiveControl<>FIOEdit)and
+    (Trim(FIOEdit.Text)<>buff) then
+      FIOEdit.Text := buff;
+    if (addr <> Trim(leQuestAddress.Text))and(Trim(leQuestAddress.Text)<>'') then
+      addr := Trim(leQuestAddress.Text);
+    if FQuestAddress <> addr then
+      QuestAddress := addr;
   except
     //
   end;
-  if (getSpaceCount(buff)<=4) and (ActiveControl<>FIOEdit)and
-    (Trim(FIOEdit.Text)<>buff) then
-    FIOEdit.Text := buff;
-  if (addr <> Trim(leQuestAddress.Text))and(Trim(leQuestAddress.Text)<>'') then
-    addr := Trim(leQuestAddress.Text);
-  if FQuestAddress <> addr then
-    QuestAddress := addr;
 end;
 
 end.

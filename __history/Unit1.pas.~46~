@@ -50,6 +50,10 @@ type
     procedure AddButtonClick(Sender: TObject);
     procedure BitBtn1Click(Sender: TObject);
     procedure RenewRecordsList;
+    procedure FIOEditEnter(Sender: TObject);
+    procedure leQuestAddressEnter(Sender: TObject);
+    procedure FIOEditExit(Sender: TObject);
+    procedure leQuestAddressExit(Sender: TObject);
   private
     FConnected: Boolean;
     FTotalCount: Integer;
@@ -122,6 +126,16 @@ begin
   SetConnected(True);
 end;
 
+procedure TForm1.FIOEditEnter(Sender: TObject);
+begin
+  EditMode := true;
+end;
+
+procedure TForm1.FIOEditExit(Sender: TObject);
+begin
+  EditMode := False;
+end;
+
 procedure TForm1.FormClose(Sender: TObject; var Action: TCloseAction);
 begin
   SetConnected(False);
@@ -172,6 +186,16 @@ begin
   result := count;
 end;
 
+procedure TForm1.leQuestAddressEnter(Sender: TObject);
+begin
+  EditMode:= true;
+end;
+
+procedure TForm1.leQuestAddressExit(Sender: TObject);
+begin
+  EditMode := False;
+end;
+
 procedure TForm1.miDisconnectClick(Sender: TObject);
 begin
   SetConnected(False);
@@ -217,9 +241,9 @@ procedure TForm1.SetEditMode(const Value: Boolean);
 begin
   FEditMode := Value;
   if FEditMode then
-    Timer1.Enabled:= True
+    Timer1.Enabled:= False
   else
-    Timer1.Enabled:= False;
+    Timer1.Enabled:= True;
 end;
 
 procedure TForm1.SetQuestAddress(const Value: String);
@@ -267,16 +291,16 @@ begin
   dtpDate.Date := today;
   try
     buff := Trim(Clipboard.AsText);
+    if (getSpaceCount(buff)<=4) and (ActiveControl<>FIOEdit)and
+    (Trim(FIOEdit.Text)<>buff) then
+      FIOEdit.Text := buff;
+    if (addr <> Trim(leQuestAddress.Text))and(Trim(leQuestAddress.Text)<>'') then
+      addr := Trim(leQuestAddress.Text);
+    if FQuestAddress <> addr then
+      QuestAddress := addr;
   except
     //
   end;
-  if (getSpaceCount(buff)<=4) and (ActiveControl<>FIOEdit)and
-    (Trim(FIOEdit.Text)<>buff) then
-    FIOEdit.Text := buff;
-  if addr <> Trim(leQuestAddress.Text)and (Trim(leQuestAddress.Text)<>'') then
-    addr := Trim(leQuestAddress.Text);
-  if FQuestAddress <> addr then
-    QuestAddress := addr;
 end;
 
 end.

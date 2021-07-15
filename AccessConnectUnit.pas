@@ -70,7 +70,7 @@ var ADOQuery: TADOQuery;
   fio, note: string;
   time: TTime;
   date: TDate;
-  ps1,ps2,as1,as2,r,f,a: boolean;
+  ps1,ps2,as1,as2,r,g,f,a: boolean;
 begin
   result := TList<TRecord>.Create;
     ADOQuery := TADOQuery.create(nil);
@@ -94,10 +94,11 @@ begin
       as1 := ADOQuery.FieldByName('AttestatScan1').AsBoolean;
       as2 := ADOQuery.FieldByName('AttestatScan2').AsBoolean;
       r := ADOQuery.FieldByName('Registrate').AsBoolean;
+      g := ADOQuery.FieldByName('Grades').AsBoolean;
       f := ADOQuery.FieldByName('Family').AsBoolean;
       a := ADOQuery.FieldByName('Agreement').AsBoolean;
       note := ADOQuery.FieldByName('Note').AsString;
-      result.Add(TRecord.create(fio, time, date, ps1,ps2,as1,as2,r,f,a,note));
+      result.Add(TRecord.create(fio, time, date, ps1,ps2,as1,as2,r,g,f,a,note));
       ADOQuery.Next;
     end;
     ADOQuery.Free;
@@ -123,9 +124,9 @@ begin
     Close;
     SQL.Clear;
     SQL.Text := ('INSERT INTO records (fio, Time1, Date1,Passportscan1,');
-    SQL.Add('PassportScan2,AttestatScan1,AttestatScan2,Registrate,Family,Agreement,Note1)');
+    SQL.Add('PassportScan2,AttestatScan1,AttestatScan2,Registrate,Grades,Family,Agreement,Note1)');
     SQL.Add(' VALUES (:fio, :Time1, :Date1, :Passportscan1,:PassportScan2,');
-    SQL.Add(':AttestatScan1,:AttestatScan2,:Registrate,:Family,:Agreement,:Note1)');
+    SQL.Add(':AttestatScan1,:AttestatScan2,:Registrate,:Grades,:Family,:Agreement,:Note1)');
     Parameters.ParamByName('fio').Value:= rec.userFIO;
     Parameters.ParamByName('Time1').Value:= sTime;
     Parameters.ParamByName('Date1').Value:= sDate;
@@ -134,13 +135,14 @@ begin
     Parameters.ParamByName('Attestatscan1').Value:= rec.attestatScan1;
     Parameters.ParamByName('Attestatscan2').Value:= rec.attestatScan2;
     Parameters.ParamByName('Registrate').Value:= rec.Registrate;
+    Parameters.ParamByName('Grades').Value:= rec.Grades;
     Parameters.ParamByName('Family').Value:= rec.Family;
     Parameters.ParamByName('Agreement').Value:= rec.Agreement;
     Parameters.ParamByName('Note1').Value:= rec.Note;
     try
       ExecSQL;
     except
-      showmessage((Parameters.ParamValues['Note']));
+      //showmessage((Parameters.ParamValues['Note']));
     end;
     Close;
   end;
@@ -151,7 +153,7 @@ var ADOQuery: TADOQuery;
   note: string;
   time: TTime;
   date: TDate;
-  ps1,ps2,as1,as2,r,f,a: boolean;
+  ps1,ps2,as1,as2,r,g,f,a: boolean;
 begin
   result := TList<TRecord>.Create;
     ADOQuery := TADOQuery.create(nil);
@@ -175,10 +177,11 @@ begin
       as1 := ADOQuery.FieldByName('AttestatScan1').AsBoolean;
       as2 := ADOQuery.FieldByName('AttestatScan2').AsBoolean;
       r := ADOQuery.FieldByName('Registrate').AsBoolean;
+      g := ADOQuery.FieldByName('Grades').AsBoolean;
       f := ADOQuery.FieldByName('Family').AsBoolean;
       a := ADOQuery.FieldByName('Agreement').AsBoolean;
       note := ADOQuery.FieldByName('Note').AsString;
-      result.Add(TRecord.create(fio, time, date, ps1,ps2,as1,as2,r,f,a,note));
+      result.Add(TRecord.create(fio, time, date, ps1,ps2,as1,as2,r,g,f,a,note));
       ADOQuery.Next;
     end;
     ADOQuery.Free;
@@ -189,7 +192,7 @@ var ADOQuery: TADOQuery;
   fio, note: string;
   time: TTime;
   date: TDate;
-  ps1,ps2,as1,as2,r,f,a: boolean;
+  ps1,ps2,as1,as2,r,g,f,a: boolean;
 begin
   result := TList<TRecord>.Create;
     ADOQuery := TADOQuery.create(nil);
@@ -213,10 +216,11 @@ begin
       as1 := ADOQuery.FieldByName('AttestatScan1').AsBoolean;
       as2 := ADOQuery.FieldByName('AttestatScan2').AsBoolean;
       r := ADOQuery.FieldByName('Registrate').AsBoolean;
+      g := ADOQuery.FieldByName('Grades').AsBoolean;
       f := ADOQuery.FieldByName('Family').AsBoolean;
       a := ADOQuery.FieldByName('Agreement').AsBoolean;
       note := ADOQuery.FieldByName('Note1').AsString;
-      result.Add(TRecord.create(fio, time, date, ps1,ps2,as1,as2,r,f,a,note));
+      result.Add(TRecord.create(fio, time, date, ps1,ps2,as1,as2,r,g,f,a,note));
       ADOQuery.Next;
     end;
     ADOQuery.Free;

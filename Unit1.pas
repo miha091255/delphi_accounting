@@ -18,7 +18,6 @@ type
     PassportScan2: TCheckBox;
     AttestatScan1: TCheckBox;
     AttestatScan2: TCheckBox;
-    Registration: TCheckBox;
     Family: TCheckBox;
     Agreement: TCheckBox;
     Label1: TLabel;
@@ -41,6 +40,9 @@ type
     lCount: TLabel;
     lRegCount: TLabel;
     leQuestAddress: TLabeledEdit;
+    CheckListBox2: TCheckListBox;
+    Registration: TCheckBox;
+    Grades: TCheckBox;
     procedure FormCreate(Sender: TObject);
     procedure Timer1Timer(Sender: TObject);
     procedure DefaultConnectClick(Sender: TObject);
@@ -101,9 +103,10 @@ begin
   try
     rec := TRecord.create(fio, dtpTime.Time, dtpDate.Date,
     PassportScan1.Checked, PassportScan2.Checked, AttestatScan1.Checked,
-    AttestatScan2.Checked, Registration.Checked, Family.Checked,
+    AttestatScan2.Checked, Registration.Checked, Grades.Checked, Family.Checked,
     Agreement.Checked, Trim(NoteEdit.Text));
     connect.insert(rec);
+    rec.destroy;
     generateAnswer;
     renewRecordsList;
     TotalCount := FTotalCount + 1;
@@ -153,26 +156,36 @@ begin
 end;
 
 procedure TForm1.generateAnswer;
-var s: string;
+var s, name: string;
+  i: integer;
 begin
-  s := 'Здравствуйте, '+Trim(FIOEdit.Text)+'!'+#13;
+  name := Trim(FIOEdit.Text);
+  i := pos(' ', name);
+  name := copy(name, i, length(name)-i+1);
+  s := 'Здравствуйте, '+name+'! '+#13;
   if (not PassportScan1.Checked)or(not PassportScan2.Checked)or
   (not AttestatScan1.Checked)or(not AttestatScan2.Checked)or
-  (Family.Checked)or(Agreement.Checked) then
-    s := s+' В вашем заявлении не хватает '+#13;
+  (Family.Checked)or(Agreement.Checked)or(Grades.Checked) then
+    s := s+' В вашем заявлении:'+#13;
   if not PassportScan1.Checked then
-    s := s + ' - копии паспорта лицевой(стр 1-2);'+#13;
+    s := s + ' - нет копии паспорта лицевой(стр 1-2);'+#13;
   if not PassportScan2.Checked then
-    s := s + ' - копии прописки из паспорта;'+#13;
+    s := s + ' - нет копии прописки из паспорта;'+#13;
   if not AttestatScan1.Checked then
-    s := s + ' - копии аттестата;'+#13;
+    s := s + ' - нет копии аттестата;'+#13;
   if not AttestatScan2.Checked then
-    s := s + ' - копии приложения к аттестату;'+#13;
+    s := s + ' - нет копии приложения к аттестату;'+#13;
   if Family.Checked then
-    s := s + ' - сведений о родителях/ законных представителях;'+#13;
+    s := s + ' - нет сведений о родителях/ законных представителях;'+#13;
   if Agreement.Checked then
-    s := s + ' - заявления от родителей о согласии на обработку ваших персональных данных;'+#13;
-  s := s + ' Вопросы по заполнению заявки вы можете задать '+questAddress;
+    s := s + ' - нет заявления от родителей о согласии на обработку ваших персональных данных;'+#13;
+  if Grades.Checked then
+    s := s + ' - не проставлены баллы за экзамены;'+#13;
+  s := s + 'Если у вас возникли вопросы по заполнению заявления,'+
+  ' рекомендуем посетить следующие источники:'+#13+
+  'https://disk.yandex.ru/i/KN21P_7QknZHOQ'+#13+
+  'https://disk.yandex.ru/i/O3RnKnGL9210rg'+#13+
+  'Если у вас все еще остались вопросы, вы можете задать их '+questAddress;
   memo1.Text := s;
 end;
 
@@ -291,16 +304,16 @@ begin
   dtpDate.Date := today;
   try
     buff := Trim(Clipboard.AsText);
+    if (getSpaceCount(buff)<=4) and (ActiveControl<>FIOEdit)and
+    (Trim(FIOEdit.Text)<>buff) then
+      FIOEdit.Text := buff;
+    if (addr <> Trim(leQuestAddress.Text))and(Trim(leQuestAddress.Text)<>'') then
+      addr := Trim(leQuestAddress.Text);
+    if FQuestAddress <> addr then
+      QuestAddress := addr;
   except
     //
   end;
-  if (getSpaceCount(buff)<=4) and (ActiveControl<>FIOEdit)and
-    (Trim(FIOEdit.Text)<>buff) then
-    FIOEdit.Text := buff;
-  if (addr <> Trim(leQuestAddress.Text))and(Trim(leQuestAddress.Text)<>'') then
-    addr := Trim(leQuestAddress.Text);
-  if FQuestAddress <> addr then
-    QuestAddress := addr;
 end;
 
 end.

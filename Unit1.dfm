@@ -44,7 +44,7 @@ object Form1: TForm1
     end
     object dtpTime: TDateTimePicker
       Left = 232
-      Top = 59
+      Top = 51
       Width = 75
       Height = 21
       Date = 44384.756720902780000000
@@ -93,30 +93,6 @@ object Form1: TForm1
       Caption = #1057#1082#1072#1085' '#1072#1090#1090#1077#1089#1090#1072#1090' 2'
       TabOrder = 6
     end
-    object Registration: TCheckBox
-      Left = 220
-      Top = 93
-      Width = 200
-      Height = 17
-      Caption = #1047#1072#1088#1077#1075#1080#1089#1090#1088#1080#1088#1086#1074#1072#1085
-      TabOrder = 7
-    end
-    object Family: TCheckBox
-      Left = 220
-      Top = 131
-      Width = 200
-      Height = 17
-      Caption = #1053#1077' '#1091#1082#1072#1079#1072#1085#1099' '#1088#1086#1076#1089#1090#1074#1077#1085#1085#1080#1082#1080
-      TabOrder = 8
-    end
-    object Agreement: TCheckBox
-      Left = 220
-      Top = 162
-      Width = 200
-      Height = 17
-      Caption = #1053#1077#1090' '#1089#1086#1075#1083#1072#1089#1080#1103' '#1086#1090' '#1088#1086#1076#1089#1090#1074#1077#1085#1085#1080#1082#1086#1074
-      TabOrder = 9
-    end
     object NoteEdit: TLabeledEdit
       Left = 10
       Top = 243
@@ -125,7 +101,7 @@ object Form1: TForm1
       EditLabel.Width = 42
       EditLabel.Height = 13
       EditLabel.Caption = #1047#1072#1084#1077#1090#1082#1072
-      TabOrder = 10
+      TabOrder = 9
     end
     object AddButton: TBitBtn
       Left = 196
@@ -133,18 +109,18 @@ object Form1: TForm1
       Width = 75
       Height = 25
       Caption = #1044#1086#1073#1072#1074#1080#1090#1100
-      TabOrder = 11
+      TabOrder = 10
       OnClick = AddButtonClick
     end
     object dtpDate: TDateTimePicker
       Left = 329
-      Top = 59
+      Top = 51
       Width = 107
       Height = 21
       Date = 44384.756720902780000000
       Time = 44384.756720902780000000
       Enabled = False
-      TabOrder = 12
+      TabOrder = 11
     end
     object BitBtn1: TBitBtn
       Left = 312
@@ -152,8 +128,48 @@ object Form1: TForm1
       Width = 108
       Height = 25
       Caption = #1050#1086#1087#1080#1088#1086#1074#1072#1090#1100' '#1086#1090#1074#1077#1090
-      TabOrder = 13
+      TabOrder = 12
       OnClick = BitBtn1Click
+    end
+    object CheckListBox2: TCheckListBox
+      Left = 208
+      Top = 78
+      Width = 228
+      Height = 118
+      ItemHeight = 13
+      TabOrder = 13
+    end
+    object Registration: TCheckBox
+      Left = 220
+      Top = 93
+      Width = 200
+      Height = 17
+      Caption = #1047#1072#1088#1077#1075#1080#1089#1090#1088#1080#1088#1086#1074#1072#1085
+      TabOrder = 14
+    end
+    object Family: TCheckBox
+      Left = 220
+      Top = 139
+      Width = 200
+      Height = 17
+      Caption = #1053#1077' '#1091#1082#1072#1079#1072#1085#1099' '#1088#1086#1076#1089#1090#1074#1077#1085#1085#1080#1082#1080
+      TabOrder = 7
+    end
+    object Agreement: TCheckBox
+      Left = 220
+      Top = 162
+      Width = 200
+      Height = 17
+      Caption = #1053#1077#1090' '#1089#1086#1075#1083#1072#1089#1080#1103' '#1086#1090' '#1088#1086#1076#1089#1090#1074#1077#1085#1085#1080#1082#1086#1074
+      TabOrder = 8
+    end
+    object Grades: TCheckBox
+      Left = 220
+      Top = 116
+      Width = 200
+      Height = 17
+      Caption = #1053#1077' '#1087#1088#1086#1089#1090#1072#1074#1083#1077#1085#1099' '#1086#1094#1077#1085#1082#1080
+      TabOrder = 15
     end
   end
   object Panel2: TPanel
@@ -179,7 +195,7 @@ object Form1: TForm1
     object lCount: TLabel
       Left = 19
       Top = 230
-      Width = 197
+      Width = 3
       Height = 13
     end
     object lRegCount: TLabel

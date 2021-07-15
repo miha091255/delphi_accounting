@@ -12,13 +12,12 @@ type
     AttestatScan1: Boolean;
     AttestatScan2: Boolean;
     Registrate: Boolean;
-    Grades: Boolean;
     Family: Boolean;
     Agreement: Boolean;
     Note: String;
     //constructor create(); overload;
     constructor create(FIO:String; Time:TTime; Date:TDate;
-      PassScan1,PassScan2,AttScan1,AttScan2,Reg,Grades,Fam,Agr:Boolean;
+      PassScan1,PassScan2,AttScan1,AttScan2,Reg,Fam,Agr:Boolean;
       Note:String); overload;
     constructor create(FIO:String; Time:TTime; Date: TDate; Note:String); overload;
   end;
@@ -33,7 +32,7 @@ begin
 end;   }
 
 constructor TRecord.create(FIO: String; Time: TTime; Date: TDate; PassScan1,
-  PassScan2, AttScan1, AttScan2, Reg, Grades, Fam, Agr: Boolean; Note: String);
+  PassScan2, AttScan1, AttScan2, Reg, Fam, Agr: Boolean; Note: String);
 begin
   Self.UserFIO:= FIO;
   Self.recordTime:= Time;
@@ -43,7 +42,6 @@ begin
   Self.AttestatScan1:= AttScan1;
   Self.AttestatScan2:= AttScan2;
   Self.Registrate:= Reg;
-  Self.Grades:= Grades;
   Self.Family:= Fam;
   Self.Agreement:= Agr;
   Self.Note:= Note;
@@ -59,7 +57,6 @@ begin
   Self.AttestatScan1:= True;
   Self.AttestatScan2:= True;
   Self.Registrate:= True;
-  Self.Grades:= True;
   Self.Family:= True;
   Self.Agreement:= True;
   Self.Note:= Note;
